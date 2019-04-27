@@ -1,0 +1,40 @@
+{% extends "blog/base.html" %}
+
+{% block title %}My Blog{% endblock %}
+{% block content %}
+
+
+        <form style="margin-left: 70%;" method="get" action="">
+        <input  type="text" name="q" placeholder="search post..." value="{{ request.GET.q }}">
+        <input type="submit" value="Search">
+        </form>
+
+        <div class="col-sm-6 offset-sm-3 col-xs-offset-3">
+        <a href="{% url 'blog:post_create' %}" class="btn btn-success" >Create Post</a>
+        <h1 > My Blog </h1>
+            {% for post in posts %}
+            <div class = "row">
+               <div class = "col-md-12 ">
+                  <div class = "thumbnail">
+            {% if post.image %}
+    <img src="{{ post.image.url }}" class="img-responsive" width="500px" height="100px">
+         {% endif %}
+
+                  <div class = "caption">
+                     <h3><a  href="{{ post.get_absolute_url }}">{{ post.title }}(id:{{ post.id }})</a></h3>
+                      <span>Published {{ post.publish }} by {{ post.author }}</span>
+                     <p>{{ post.body|truncatewords:70|linebreaks }}</p>
+                       <p> <a href = "{{ post.get_absolute_url }}" class = "btn btn-primary" role = "button">Detail
+                        </a>
+                     </p>
+                  </div>
+               </div>
+            </div>
+        </div>
+            {% endfor %}
+{% include "../pagination.html" with page=posts %}
+        </div>
+
+
+
+{% endblock %}

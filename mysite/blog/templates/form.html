@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+        <div class="col-sm-6 offset-sm-3 col-xs-offset-3">
+
+<form style="border: 4px dotted darkcyan;border-radius: 5px" method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input  type="submit"  class="btn btn-primary" value="{{ btn }}" name="">
+    </form>
+        </div>
+{% endblock %}
+
